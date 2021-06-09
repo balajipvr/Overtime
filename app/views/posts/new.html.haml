@@ -1,0 +1,13 @@
+.row.justify-content-center
+  .col-10
+    = form_for(@post, class: "form_content", local: true) do |f|
+      .form-group.row
+        = f.label :date, class: "col-2 col-form-label"
+        .col-10
+          = f.date_field :date, class: "form-control shadow rounded"
+      .form-group.row
+        = f.label :rationale, class: "col-2 col-form-label"
+        .col-10
+          = f.text_area :rationale, class: "form-control shadow rounded"
+      .form-group.row.justify-content-center
+        = f.submit "save", class: "btn btn-outline-light btn-lg"
