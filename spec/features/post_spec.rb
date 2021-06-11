@@ -2,13 +2,24 @@ require 'rails_helper'
 
 describe 'navigate' do
  describe 'index' do
+   before do
+     @user = User.create!(email: "test1@gmail.com", password: "1234567", first_name: "bala", last_name: "ji")
+     login_as(@user, :scope => :user)
+   end
    it "should reach index page successfully" do
-     visit posts_path
+      visit posts_path
      expect(page.status_code).to eq(200)
    end
    it "should have a Title posts" do
-     visit posts_path
+      visit posts_path
      expect(page).to have_content(/Posts/)
+   end
+   it "should find the list of posts" do
+       visit posts_path
+       posts1 = Post.create(date: Date.today, rationale: "posts1",user_id: @user.id)
+       posts2 = Post.create(date: Date.today, rationale: "posts2",user_id: @user.id)
+       visit posts_path
+       expect(page).to have_content(/posts1|posts2/)
    end
  end
   describe 'form view path' do
